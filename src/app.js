@@ -48,7 +48,7 @@ go.app = function() {
         self.states.add('states:joke', function(name, opts) {
             return new EndState(name, {
               
-              text: opts.echo.joke,
+              text: 'joke: ' + opts.echo.joke,
               next: 'states:start'
             });
         });
