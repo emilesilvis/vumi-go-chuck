@@ -51,7 +51,7 @@ describe("app", function() {
                     .check.interaction({
                         state: 'states:joke',
                         reply: [
-                            'This is a Chuck Norris joke!'
+                            'joke: This is a Chuck Norris joke!'
                         ].join('\n')
                     })
                     .run();

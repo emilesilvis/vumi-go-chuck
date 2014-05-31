@@ -35,7 +35,6 @@ go.app = function() {
                               name: 'states:joke',
                               creator_opts: {
                                 method: 'get',
-                                foo: 'bar',
                                 echo: resp.data
                               }
                             };
@@ -51,7 +50,7 @@ go.app = function() {
         self.states.add('states:joke', function(name, opts) {
             return new EndState(name, {
               
-              text: 'j ' + opts.echo.joke,
+              text: 'joke: ' + opts.echo.joke,
               next: 'states:start'
             });
         });

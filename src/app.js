@@ -32,7 +32,6 @@ go.app = function() {
                               name: 'states:joke',
                               creator_opts: {
                                 method: 'get',
-                                foo: 'bar',
                                 echo: resp.data
                               }
                             };
