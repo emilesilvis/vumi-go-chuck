@@ -4,21 +4,52 @@ go.app = function() {
     var Choice = vumigo.states.Choice;
     var ChoiceState = vumigo.states.ChoiceState;
     var EndState = vumigo.states.EndState;
+    var JsonApi = vumigo.http.api.JsonApi;
 
     var GoApp = App.extend(function(self) {
         App.call(self, 'states:start');
 
+        self.init = function() {
+            self.http = new JsonApi(self.im);
+        };        
+
         self.states.add('states:start', function(name) {
             return new ChoiceState(name, {
+                
                 question: 'Hi there! What do you want to do?',
 
                 choices: [
-                    new Choice('states:start', 'Show this menu again'),
-                    new Choice('states:end', 'Exit')],
+                    new Choice('joke', 'Show a joke'),
+                    new Choice('end', 'Exit')],
 
                 next: function(choice) {
-                    return choice.value;
+                    //return choice.value;
+                    if (choice.value == 'joke') {
+                      return self
+                        .http.get('http://api.icndb.com/jokes/random')
+                        .then(function(resp){
+                            return {
+                              name: 'states:joke',
+                              creator_opts: {
+                                method: 'get',
+                                foo: 'bar',
+                                echo: resp.data
+                              }
+                            };
+                        });
+                    } else if (choice.value == 'end') {
+                      return 'states:end';
+                    }
+
                 }
+            });
+        });
+
+        self.states.add('states:joke', function(name, opts) {
+            return new EndState(name, {
+              
+              text: opts.echo.joke,
+              next: 'states:start'
             });
         });
 

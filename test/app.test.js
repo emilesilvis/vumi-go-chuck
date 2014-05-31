@@ -1,6 +1,8 @@
 var vumigo = require('vumigo_v02');
 var fixtures = require('./fixtures');
 var AppTester = vumigo.AppTester;
+var assert = require('assert');
+
 
 describe("app", function() {
     describe("GoApp", function() {
@@ -29,7 +31,7 @@ describe("app", function() {
                         state: 'states:start',
                         reply: [
                             'Hi there! What do you want to do?',
-                            '1. Show this menu again',
+                            '1. Show a joke',
                             '2. Exit'
                         ].join('\n')
                     })
@@ -37,17 +39,19 @@ describe("app", function() {
             });
         });
 
-        describe("when the user asks to see the menu again", function() {
-            it("should show the menu again", function() {
+        describe("when the user asks to see a joke", function() {
+            it("should show a joke", function() {
                 return tester
                     .setup.user.state('states:start')
                     .input('1')
+                    .check(function(api) {
+                        var req = api.http.requests[0];
+                        assert.equal(req.url, 'http://api.icndb.com/jokes/random');
+                    })                    
                     .check.interaction({
-                        state: 'states:start',
+                        state: 'states:joke',
                         reply: [
-                            'Hi there! What do you want to do?',
-                            '1. Show this menu again',
-                            '2. Exit'
+                            'This is a Chuck Norris joke!'
                         ].join('\n')
                     })
                     .run();

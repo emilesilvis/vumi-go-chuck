@@ -1,17 +1,12 @@
 module.exports = function() {
     return [{
         "request": {
-            "method": "POST",
-            "url": "http://example.com",
-            "data": {
-                "bar": "baz"
-            }
+            "method": "GET",
+            "url": "http://api.icndb.com/jokes/random"
         },
         "response": {
             "code": 200,
-            "data": {
-                "ham": "spam"
-            }
+            "data": { "joke" : "This is a Chuck Norris joke!" }
         }
     }];
 };
