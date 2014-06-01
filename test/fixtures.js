@@ -2,7 +2,7 @@ module.exports = function() {
     return [{
         "request": {
             "method": "GET",
-            "url": "http://api.icndb.com/jokes/random"
+            "url": "http://api.icndb.com/jokes/random?escape=javascript"
         },
         "response": {
             "code": 200,

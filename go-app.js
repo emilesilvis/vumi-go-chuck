@@ -29,7 +29,7 @@ go.app = function() {
                     //return choice.value;
                     if (choice.value == 'joke') {
                       return self
-                        .http.get('http://api.icndb.com/jokes/random')
+                        .http.get('http://api.icndb.com/jokes/random?escape=javascript')
                         .then(function(resp){
                             return {
                               name: 'states:joke',
