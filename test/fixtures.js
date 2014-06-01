@@ -6,7 +6,14 @@ module.exports = function() {
         },
         "response": {
             "code": 200,
-            "data": { "joke" : "This is a Chuck Norris joke!" }
+            "data": {
+              type: "success",
+              value: {
+                id: 123,
+                joke: "This is a Chuck Norris joke!",
+                categories: [ ]
+              }           
+            },
         }
     }];
 };
