@@ -22,7 +22,7 @@ go.app = function() {
                 question: 'Hi there! What do you want to do?',
 
                 choices: [
-                    new Choice('joke', 'Show a joke'),
+                    new Choice('joke', 'Show me a joke'),
                     new Choice('end', 'Exit')],
 
                 next: function(choice) {
