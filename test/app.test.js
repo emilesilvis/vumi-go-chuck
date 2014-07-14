@@ -30,7 +30,7 @@ describe("app", function() {
                     .check.interaction({
                         state: 'states:start',
                         reply: [
-                            'Hi there! What do you want to do?',
+                            'Hi null! What do you want to do?',
                             '1. Show me a joke',
                             '2. Exit'
                         ].join('\n')

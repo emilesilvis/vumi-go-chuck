@@ -14,12 +14,19 @@ go.app = function() {
 
         self.init = function() {
             self.http = new JsonApi(self.im);
-        };        
+
+        return self.im
+            .contacts.for_user()
+            .then(function(user_contact) {
+                self.contact = user_contact;
+            });
+
+        };
 
         self.states.add('states:start', function(name) {
             return new ChoiceState(name, {
                 
-                question: 'Hi there! What do you want to do?',
+                question: 'Hi ' + self.contact.name + '! What do you want to do?',
 
                 choices: [
                     new Choice('joke', 'Show me a joke'),
