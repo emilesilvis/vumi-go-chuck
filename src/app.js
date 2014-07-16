@@ -42,7 +42,7 @@ go.app = function() {
                         });
                 }
             });
-        });        
+        });
 
         self.states.add('states:registered', function(name) {
             return new ChoiceState(name, {
@@ -54,7 +54,6 @@ go.app = function() {
                     new Choice('end', 'Exit')],
 
                 next: function(choice) {
-                    //return choice.value;
                     if (choice.value == 'joke') {
                       return self
                         .http.get('http://api.icndb.com/jokes/random?escape=javascript')
