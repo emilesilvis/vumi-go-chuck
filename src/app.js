@@ -5,6 +5,7 @@ go.app = function() {
     var ChoiceState = vumigo.states.ChoiceState;
     var EndState = vumigo.states.EndState;
     var JsonApi = vumigo.http.api.JsonApi;
+    var FreeText = vumigo.states.FreeText;
 
     var GoApp = App.extend(function(self) {
         App.call(self, 'states:start');
@@ -20,6 +21,60 @@ go.app = function() {
 
         };
 
+        self.states.add('states:start', function(name) {
+            return self.contact.extra.registered === 'true'
+                ?  self.states.create('states:registered')
+                :  self.states.create('states:registration:name');
+        });
+
+        self.states.add('states:registration:name', function(name) {
+            return new FreeText(name, {
+                question: 'What is your name?',
+
+                next: function(content) {
+                    self.contact.name = content;
+                    self.contact.extra.registered = 'true';
+
+                    return self.im
+                        .contacts.save(self.contact)
+                        .then(function() {
+                            return 'states:registered';
+                        });
+                }
+            });
+        });        
+
+        self.states.add('states:registered', function(name) {
+            return new ChoiceState(name, {
+                
+                question: 'Hi ' + self.contact.name + '! What do you want to do?',
+
+                choices: [
+                    new Choice('joke', 'Show me a joke'),
+                    new Choice('end', 'Exit')],
+
+                next: function(choice) {
+                    //return choice.value;
+                    if (choice.value == 'joke') {
+                      return self
+                        .http.get('http://api.icndb.com/jokes/random?escape=javascript')
+                        .then(function(resp){
+                            return {
+                              name: 'states:joke',
+                              creator_opts: {
+                                method: 'get',
+                                echo: resp.data
+                              }
+                            };
+                        });
+                    } else if (choice.value == 'end') {
+                      return 'states:end';
+                    }
+                }
+            });
+        });
+
+        /*
         self.states.add('states:start', function(name) {
             return new ChoiceState(name, {
                 
@@ -50,6 +105,7 @@ go.app = function() {
                 }
             });
         });
+        */
 
         self.states.add('states:joke', function(name, opts) {
             return new EndState(name, {
