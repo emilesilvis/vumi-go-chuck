@@ -87,39 +87,6 @@ go.app = function() {
             });
         });
 
-        /*
-        self.states.add('states:start', function(name) {
-            return new ChoiceState(name, {
-                
-                question: 'Hi ' + self.contact.name + '! What do you want to do?',
-
-                choices: [
-                    new Choice('joke', 'Show me a joke'),
-                    new Choice('end', 'Exit')],
-
-                next: function(choice) {
-                    //return choice.value;
-                    if (choice.value == 'joke') {
-                      return self
-                        .http.get('http://api.icndb.com/jokes/random?escape=javascript')
-                        .then(function(resp){
-                            return {
-                              name: 'states:joke',
-                              creator_opts: {
-                                method: 'get',
-                                echo: resp.data
-                              }
-                            };
-                        });
-                    } else if (choice.value == 'end') {
-                      return 'states:end';
-                    }
-
-                }
-            });
-        });
-        */
-
         self.states.add('states:joke', function(name, opts) {
             return new EndState(name, {
               
