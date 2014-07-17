@@ -25,8 +25,8 @@ describe("app", function() {
                     var af = fixtures()[1];
                     api.config.store['translation.af'] = af;
 
-                })
-                .setup.user.lang('en');
+                });
+                //.setup.user.lang('af');
 
         });
 
@@ -46,10 +46,11 @@ describe("app", function() {
         });
 
 
-        describe("when user has chosen language", function() {
+        describe("when user has chosen Afrikaans", function() {
             it("should check whether they are registered and if not, should ask for name", function() {
                 return tester
                     .setup.user.state('states:language')
+                    .setup.user.lang('af')
                     .input('1')
                     .check.interaction({
                         state: 'states:registration:name',
@@ -61,6 +62,21 @@ describe("app", function() {
             });
         });
 
+        describe("when user has chosen English", function() {
+            it("should check whether they are registered and if not, should ask for name", function() {
+                return tester
+                    .setup.user.state('states:language')
+                    .setup.user.lang('en')
+                    .input('2')
+                    .check.interaction({
+                        state: 'states:registration:name',
+                        reply: [
+                          'What is your name?'
+                        ].join('\n')
+                    })
+                    .run();
+            });
+        });
         
         describe("when the user gives name", function() {
             it("should greet user by name and show menu", function() {

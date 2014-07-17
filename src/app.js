@@ -16,7 +16,7 @@ go.app = function() {
         self.init = function() {
             self.http = new JsonApi(self.im);
 
-            self.im.user.set_lang('af');
+            //self.im.user.set_lang('af');
 
             return self.im
             .contacts.for_user()
