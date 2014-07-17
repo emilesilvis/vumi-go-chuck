@@ -1,0 +1,17 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2014-07-17 11:33:+0200\n"
+"Project-Id-Version: \n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-07-17 11:34+0200\n"
+"Last-Translator: \n"
+"X-Generator: Poedit 1.6.6\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: af_ZA\n"
+
+#: go-app.js:49
+msgid "What is your name?"
+msgstr "Wat is jou naam?"

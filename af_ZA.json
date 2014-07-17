@@ -1,0 +1,19 @@
+{
+    "": {
+        "pot-creation-date": "2014-07-17 11:33:+0200",
+        "project-id-version": "",
+        "language-team": "LANGUAGE <LL@li.org>",
+        "mime-version": "1.0",
+        "content-type": "text/plain; charset=UTF-8",
+        "content-transfer-encoding": "8bit",
+        "po-revision-date": "2014-07-17 11:34+0200",
+        "last-translator": "",
+        "x-generator": "Poedit 1.6.6",
+        "plural-forms": "nplurals=2; plural=(n != 1);",
+        "language": "af_ZA"
+    },
+    "What is your name?": [
+        null,
+        "Wat is jou naam?"
+    ]
+}

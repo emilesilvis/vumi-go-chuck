@@ -24,9 +24,26 @@ describe("app", function() {
         });
 
         describe("when the user starts a session", function() {
-            it("should check whether they are registered and if not, should ask for name", function() {
+            it("should ask for language choice", function() {
                 return tester
                     .start()
+                    .check.interaction({
+                        state: 'states:language',
+                        reply: [
+                          "What language would you like to use?",
+                          "1. Afrikaans",
+                          "2. English"].join('\n')
+                    })
+                    .run();
+            });
+        });
+
+
+        describe("when user has chosen language", function() {
+            it("should check whether they are registered and if not, should ask for name", function() {
+                return tester
+                    .setup.user.state('states:language')
+                    .input('1')
                     .check.interaction({
                         state: 'states:registration:name',
                         reply: [
@@ -37,6 +54,7 @@ describe("app", function() {
             });
         });
 
+        
         describe("when the user gives name", function() {
             it("should greet user by name and show menu", function() {
                 return tester
@@ -53,25 +71,7 @@ describe("app", function() {
                     .run();
             });
         });
-
-        /*
-        describe("when the user starts a session", function() {
-            it("should ask them want they want to do", function() {
-                return tester
-                    .start()
-                    .check.interaction({
-                        state: 'states:start',
-                        reply: [
-                            'Hi null! What do you want to do?',
-                            '1. Show me a joke',
-                            '2. Exit'
-                        ].join('\n')
-                    })
-                    .run();
-            });
-        });
-        */
-
+        
         describe("when the user asks to see a joke", function() {
             it("should show a joke", function() {
                 return tester

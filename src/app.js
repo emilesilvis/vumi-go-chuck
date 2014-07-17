@@ -6,9 +6,11 @@ go.app = function() {
     var EndState = vumigo.states.EndState;
     var JsonApi = vumigo.http.api.JsonApi;
     var FreeText = vumigo.states.FreeText;
+    var LanguageChoice = vumigo.states.LanguageChoice;
 
     var GoApp = App.extend(function(self) {
         App.call(self, 'states:start');
+        var $ = self.$;
 
         self.init = function() {
             self.http = new JsonApi(self.im);
@@ -24,12 +26,24 @@ go.app = function() {
         self.states.add('states:start', function(name) {
             return self.contact.extra.registered === 'true'
                 ?  self.states.create('states:registered')
-                :  self.states.create('states:registration:name');
+                :  self.states.create('states:language');
+        });
+
+        self.states.add('states:language', function(name) {
+          return new LanguageChoice(name,
+            {
+                next: "states:registration:name",
+                question: "What language would you like to use?",
+                choices: [
+                  new Choice("af", "Afrikaans"),
+                  new Choice("en", "English") ]
+            }
+          );        
         });
 
         self.states.add('states:registration:name', function(name) {
             return new FreeText(name, {
-                question: 'What is your name?',
+                question: $('What is your name?'),
 
                 next: function(content) {
                     self.contact.name = content;
@@ -42,7 +56,7 @@ go.app = function() {
                         });
                 }
             });
-        });
+        });        
 
         self.states.add('states:registered', function(name) {
             return new ChoiceState(name, {
