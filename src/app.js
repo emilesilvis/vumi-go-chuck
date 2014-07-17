@@ -7,6 +7,7 @@ go.app = function() {
     var JsonApi = vumigo.http.api.JsonApi;
     var FreeText = vumigo.states.FreeText;
     var LanguageChoice = vumigo.states.LanguageChoice;
+    //var User = vumigo.user;
 
     var GoApp = App.extend(function(self) {
         App.call(self, 'states:start');
@@ -15,14 +16,17 @@ go.app = function() {
         self.init = function() {
             self.http = new JsonApi(self.im);
 
-        return self.im
+            self.im.user.set_lang('af');
+
+            return self.im
             .contacts.for_user()
             .then(function(user_contact) {
                 self.contact = user_contact;
             });
 
-        };
 
+        };
+        
         self.states.add('states:start', function(name) {
             return self.contact.extra.registered === 'true'
                 ?  self.states.create('states:registered')

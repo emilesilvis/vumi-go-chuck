@@ -47,7 +47,7 @@ describe("app", function() {
                     .check.interaction({
                         state: 'states:registration:name',
                         reply: [
-                          'What is your name?'
+                          'Wat is jou naam?'
                         ].join('\n')
                     })
                     .run();
