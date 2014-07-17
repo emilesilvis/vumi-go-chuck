@@ -19,8 +19,15 @@ describe("app", function() {
                     name: 'test_app'
                 })
                 .setup(function(api) {
-                    fixtures().forEach(api.http.fixtures.add);
-                });
+                    //fixtures().forEach(api.http.fixtures.add);
+                    api.http.fixtures.add(fixtures()[0]);
+
+                    var af = fixtures()[1];
+                    api.config.store['translation.af'] = af;
+
+                })
+                .setup.user.lang('en');
+
         });
 
         describe("when the user starts a session", function() {
